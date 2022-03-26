@@ -13,7 +13,7 @@ class Game:
         self.screen = pg.display.set_mode((self.settings.screen_width,
                                            self.settings.screen_height))
         self.bg_color = self.settings.bg_color
-        # self.clock = pygame.time.Clock()
+        self.clock = pg.time.Clock()
         
         self.overworld = Overworld(game = self)
         
@@ -21,7 +21,6 @@ class Game:
         
     def draw(self):
         self.screen.fill(self.bg_color)
-        pg.display.flip()
         
     def run(self):
         self.overworld.run()
@@ -32,12 +31,12 @@ class Game:
                 if event.type == pg.QUIT:
                     pg.quit()
                     sys.exit()
-                    
+            
+            self.draw() 
             self.run()
-            self.draw()
             
             pg.display.update()
-            # self.clock.tick(60)
+            self.clock.tick(60)
         
 def main():
     game = Game()

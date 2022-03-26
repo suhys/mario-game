@@ -6,4 +6,4 @@ class Settings():
         self.bg_color = 0,0,0
         
         self.start_level = 0
-        self.max_level = 3
+        self.max_level = 1
