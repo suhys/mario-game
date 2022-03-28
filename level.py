@@ -1,7 +1,9 @@
 import pygame as pg
-from game_data import levels
+from game_data import levels, level_map
+from pygame.sprite import Group
+from tile import Tile
 
-class Level:
+class OverWorldLevel:
     def __init__(self, game, current_level):
         self.game = game
         self.settings = self.game.settings
@@ -30,3 +32,28 @@ class Level:
     def run(self):
         self.input()
         self.screen.blit(self.text_surf, self.text_rect)
+        
+
+class GameLevel:
+    def __init__(self, game):
+        self.game = game
+        self.settings = game.settings
+        self.screen = game.screen
+        self.setup_level(level_map)
+        
+    def setup_level(self, layout):
+        self.tiles = Group()
+        for row_index, row in enumerate(layout):
+            for col_index, cell in enumerate(row):
+                if cell == 'X':
+                    x = col_index * self.settings.tile_size
+                    y = row_index * self.settings.tile_size
+                    tile = Tile((x,y),self.settings.tile_size)
+                    print('add')
+                    self.tiles.add(tile)
+                    
+            
+        
+    def draw(self):
+        self.tiles.update(self.settings.world_shift)
+        self.tiles.draw(self.screen)
