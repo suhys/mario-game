@@ -4,13 +4,12 @@ class Settings():
     def __init__(self):
         # level setting
         self.tile_size = 64
-        self.world_shift = -1
+        self.world_shift = 0
         
         #screen setting        
         self.screen_width = 1200
         self.screen_height = len(level_map) * self.tile_size
         self.bg_color = 0,0,0
-
         
         #overworld setting
         self.start_level = 0

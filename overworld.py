@@ -5,6 +5,7 @@ from game_data import levels
 from pygame.sprite import Group, Sprite, GroupSingle
 
 class Overworld:
+    
     def __init__(self, game, current_level):
         #setup
         self.game = game
@@ -89,6 +90,7 @@ class Overworld:
         self.icon.draw(self.screen)
         
 class Icon(Sprite):
+    player_image = [pg.image.load(f'img/Mario.png')]
     def __init__(self,pos):
         super().__init__()
         self.pos = pos

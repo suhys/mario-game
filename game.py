@@ -6,6 +6,7 @@ from level import *
 from tile import Tile
 
 class Game:
+    worldimg = [pg.image.load(f'img/NES - Super Mario Bros - World 1-1.png')]
     
     def __init__(self):
         #initialize pygame, settings, and screen object
@@ -34,12 +35,13 @@ class Game:
         self.overworld = Overworld(game=self, current_level=current_level )
         self.status = 'overworld'
         
+    def update(self):
+        self.gamelevel.update()
+        
     def draw(self):
         self.screen.fill(self.bg_color)
         self.gamelevel.draw()
-        
-        
-        
+                
     def run(self):
         # if self.status == 'overworld':
         #     self.overworld.run()
@@ -51,9 +53,10 @@ class Game:
         while True:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
-                    pg.quit()
                     sys.exit()
+        
             
+            self.update()
             self.draw() 
             # self.run()
             
