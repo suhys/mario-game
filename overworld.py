@@ -5,14 +5,15 @@ from game_data import levels
 from pygame.sprite import Group, Sprite, GroupSingle
 
 class Overworld:
-    def __init__(self, game):
+    def __init__(self, game, current_level):
         #setup
         self.game = game
         self.settings = game.settings
         self.screen = game.screen
         self.max_level = self.settings.max_level
         self.start_level = self.settings.start_level
-        self.current_level = self.settings.start_level
+        self.current_level = current_level
+        self.create_level = game.create_level
         
         # movement logic
         self.moving = False
@@ -56,6 +57,8 @@ class Overworld:
                     self.move_direction = self.get_movement_data('previous')
                     self.current_level -= 1
                     self.moving = True
+            elif keys[pg.K_SPACE]:
+                self.create_level(self.current_level)
                 
     def get_movement_data(self, target):
         start = pg.math.Vector2(self.nodes.sprites()[self.current_level].rect.center)

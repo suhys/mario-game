@@ -2,6 +2,7 @@ import pygame as pg
 import sys
 from settings import Settings
 from overworld import Overworld
+from level import Level
 
 class Game:
     
@@ -15,15 +16,29 @@ class Game:
         self.bg_color = self.settings.bg_color
         self.clock = pg.time.Clock()
         
-        self.overworld = Overworld(game = self)
+        self.overworld = Overworld(game = self, current_level=0)
+        self.status = 'overworld'
         
         pg.display.set_caption("Mario Game")
+        
+    def create_level(self, current_level):
+        self.level = Level(game=self, current_level = current_level)
+        self.status = 'level'
+        
+    def create_overworld(self, current_level, new_max_level):
+        if new_max_level > self.settings.max_level:
+            self.settings.max_level = new_max_level
+        self.overworld = Overworld(game=self, current_level=current_level )
+        self.status = 'overworld'
         
     def draw(self):
         self.screen.fill(self.bg_color)
         
     def run(self):
-        self.overworld.run()
+        if self.status == 'overworld':
+            self.overworld.run()
+        else:
+            self.level.run()
         
     def run_game(self):
         while True:
