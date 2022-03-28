@@ -3,7 +3,7 @@ from pygame.sprite import Group, Sprite
 from settings import Settings
 
 class Player(Sprite):
-    player_image = pg.image.load(f'img/Mario.png')
+    player_image = pg.transform.rotozoom(pg.image.load(f'img/Mario.png'),0,2)
     
     def __init__(self, pos):
         super().__init__()
@@ -11,6 +11,7 @@ class Player(Sprite):
         self.settings = Settings()
         self.rect = self.image.get_rect(bottomleft = pos)
         self.direction = pg.math.Vector2(0,0)
+        self.speed = 8
         
     def input(self):
         keys = pg.key.get_pressed()
@@ -24,4 +25,4 @@ class Player(Sprite):
 
     def update(self):
         self.input()
-        self.rect.x += self.direction.x
+        self.rect.x += self.direction.x * self.speed

@@ -41,6 +41,9 @@ class GameLevel:
         
         self.settings = game.settings
         self.screen = game.screen
+        
+        self.world_shift = 0
+        
         self.setup_level(level_map)
         
     def setup_level(self, layout):
@@ -57,8 +60,24 @@ class GameLevel:
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
     
+    def scroll_x(self):
+        player = self.player.sprite
+        player_x = player.rect.centerx
+        direction_x = player.direction.x
+        
+        if player_x < self.settings.screen_width / 2 and direction_x < 0:
+            self.world_shift = 8
+            player.speed = 0
+        elif player_x > self.settings.screen_width - (self.settings.screen_width / 2) and direction_x > 0:
+            self.world_shift = -8
+            player.speed = 0
+        else:
+            self.world_shift = 0
+            player.speed = 8
+        
+    
     def update(self):
-        self.tiles.update(self.settings.world_shift)
+        self.tiles.update(self.world_shift)
         self.player.update()
              
     def draw(self):
@@ -66,3 +85,4 @@ class GameLevel:
         self.tiles.draw(self.screen)
         #player
         self.player.draw(self.screen)
+        self.scroll_x()

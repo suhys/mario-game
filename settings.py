@@ -4,7 +4,6 @@ class Settings():
     def __init__(self):
         # level setting
         self.tile_size = 64
-        self.world_shift = 0
         
         #screen setting        
         self.screen_width = 1200
