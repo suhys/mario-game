@@ -90,7 +90,7 @@ class Overworld:
         self.icon.draw(self.screen)
         
 class Icon(Sprite):
-    player_image = [pg.image.load(f'img/Mario.png')]
+    player_image = [pg.image.load(f'img/mario/idle/Mario0.png')]
     def __init__(self,pos):
         super().__init__()
         self.pos = pos

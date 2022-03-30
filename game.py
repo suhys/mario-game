@@ -6,7 +6,6 @@ from level import *
 from tile import Tile
 
 class Game:
-    worldimg = [pg.image.load(f'img/NES - Super Mario Bros - World 1-1.png')]
     
     def __init__(self):
         #initialize pygame, settings, and screen object
