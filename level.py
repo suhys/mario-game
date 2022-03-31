@@ -42,11 +42,15 @@ class GameLevel:
         
         self.settings = game.settings
         self.screen = game.screen
+        self.screen_rect = self.screen.get_rect()
         
         self.world_shift = 0
         self.current_x = 0
         
         self.setup_level(level_map)
+        
+        self.moving_right = False
+        self.moving_left = False
         
     def setup_level(self, layout):
         self.tiles = Group()
@@ -67,15 +71,22 @@ class GameLevel:
         player_x = player.rect.centerx
         direction_x = player.direction.x
         
+
         if player_x < self.settings.screen_width / 2 and direction_x < 0:
-            self.world_shift = 8
-            player.speed = 0
+            self.world_shift = -1
         elif player_x > self.settings.screen_width - (self.settings.screen_width / 2) and direction_x > 0:
             self.world_shift = -8
             player.speed = 0
         else:
-            self.world_shift = 0
+            if self.world_shift == 0:
+                self.world_shift = 0
+            else:
+                self.world_shift = -1
             player.speed = 8
+            # if player.rect.left == self.screen_rect.left +1 :
+            #     player.speed = -1
+            # elif player.rect.left < self.screen_rect.left:
+            #     player.speed = 0
         
     def horizontal_movement_collision(self):
         player = self.player.sprite

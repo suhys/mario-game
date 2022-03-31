@@ -6,14 +6,14 @@ level_3 = {'node_pos':(850,400), 'content': 'this is level 3', 'unlock':3}
 levels = {0: level_0, 1: level_1, 2: level_2, 3: level_3}
 
 level_map = [
-'                            ',
-'                            ',
-'                            ',
-' XX    XXX            XX    ',
-' XX P                       ',
-' XXXX         XX         XX ',
-' XXXX       XX              ',
-' XX    X  XXXX    XX  XX    ',
-'       X  XXXX    XX  XXX   ',
-'    XXXX  XXXXXX  XX  XXXX  ',
-'XXXXXXXX  XXXXXX  XX  XXXX  ']
+'                              ',
+'                              ',
+'                              ',
+'                              ',
+'                              ',
+'                              ',
+'                              ',
+'                              ',
+'P                             ',
+'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
