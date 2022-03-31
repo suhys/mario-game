@@ -9,6 +9,7 @@ class Settings():
         self.screen_width = 1200
         self.screen_height = len(level_map) * self.tile_size
         self.bg_color = 0,0,0
+        self.background_multiplier = 10
         
         #overworld setting
         self.start_level = 0

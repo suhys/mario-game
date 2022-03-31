@@ -1,9 +1,11 @@
 import pygame as pg
 import sys
+from background import Background
 from settings import Settings
 from overworld import Overworld
 from level import *
 from tile import Tile
+from background import Background
 
 class Game:
     
@@ -15,6 +17,9 @@ class Game:
         self.screen = pg.display.set_mode((self.settings.screen_width,
                                            self.settings.screen_height))
         self.bg_color = self.settings.bg_color
+        self.bg = Background(game = self)
+        self.background = self.bg.background
+        
         self.clock = pg.time.Clock()
         
         self.overworld = Overworld(game = self, current_level=0)
@@ -39,6 +44,7 @@ class Game:
         
     def draw(self):
         self.screen.fill(self.bg_color)
+        self.screen.blit(self.background, self.bg.rect)
         self.gamelevel.draw()
                 
     def run(self):

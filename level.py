@@ -38,6 +38,7 @@ class OverWorldLevel:
 class GameLevel:
     def __init__(self, game):
         self.game = game
+        self.bg = game.bg
         
         self.settings = game.settings
         self.screen = game.screen
@@ -115,11 +116,10 @@ class GameLevel:
             player.on_ground = False
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False 
-        
-            
     
     def update(self):
         self.tiles.update(self.world_shift)
+        self.bg.update(self.world_shift)
         self.player.update()
              
     def draw(self):
