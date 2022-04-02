@@ -42,7 +42,7 @@ class Game:
     def update(self):
         self.gamelevel.update()
         
-    def draw(self):
+    def draw(self): 
         self.screen.fill(self.bg_color)
         self.screen.blit(self.background, self.bg.rect)
         self.gamelevel.draw()

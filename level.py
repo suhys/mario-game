@@ -1,3 +1,4 @@
+from turtle import width
 import pygame as pg
 from game_data import levels, level_map
 from player import Player
@@ -68,25 +69,33 @@ class GameLevel:
     
     def scroll_x(self):
         player = self.player.sprite
-        player_x = player.rect.centerx
+        self.rect_x = player.rect.centerx
+        self.rect = player.rect
         direction_x = player.direction.x
         
 
-        if player_x < self.settings.screen_width / 2 and direction_x < 0:
-            self.world_shift = -1
-        elif player_x > self.settings.screen_width - (self.settings.screen_width / 2) and direction_x > 0:
-            self.world_shift = -8
-            player.speed = 0
-        else:
-            if self.world_shift == 0:
-                self.world_shift = 0
-            else:
+        if self.bg.rect.right > self.screen_rect.right :
+            if direction_x > 0 and self.rect.right < self.screen_rect.right:
+                if self.rect_x < self.settings.screen_width - (self.settings.screen_width / 2):
+                    player.speed = 8
+                    self.world_shift = -1
+                else:
+                    player.speed = 0
+                    self.world_shift = -8
+                print('1')
+            elif direction_x < 0 and self.rect.left > 0:
                 self.world_shift = -1
+                player.speed = 8
+                print('2')
+            else :
+                self.world_shift = -1
+                player.speed = 0
+                print('3)')
+                
+        else:
             player.speed = 8
-            # if player.rect.left == self.screen_rect.left +1 :
-            #     player.speed = -1
-            # elif player.rect.left < self.screen_rect.left:
-            #     player.speed = 0
+            self.world_shift = 0
+
         
     def horizontal_movement_collision(self):
         player = self.player.sprite
