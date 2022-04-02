@@ -15,7 +15,10 @@ class Settings():
         
         #overworld setting
         self.start_level = 0
+        self.current_level = 1
         self.max_level = 1        
+        
+        self.mario_limit = 3
         
         # camera
         CAMERA_BORDERS = {

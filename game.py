@@ -8,16 +8,14 @@ from tile import Tile
 from background import Background
 from landing_page import LandingPage
 from sound import Sound
-# from game_status import GameStats
-
+from game_stats import GameStats
+from scoreboard import Scoreboard
 class Game:
     
     def __init__(self):
         #initialize pygame, settings, and screen object
         pg.init()
         self.settings = Settings()
-        # self.game_status = GameStats
-        self.sound = Sound()
         
         self.screen = pg.display.set_mode((self.settings.screen_width,
                                            self.settings.screen_height))
@@ -25,6 +23,9 @@ class Game:
         self.bg = Background(game = self)
         self.background = self.bg.background
         self.tile = Tile
+        self.stats = GameStats(game=self)
+        self.scoreboard = Scoreboard(game=self)
+        self.sound = Sound()
         
         self.clock = pg.time.Clock()
         
@@ -48,12 +49,14 @@ class Game:
         
     def update(self):
         self.gamelevel.update()
+        self.scoreboard.update()
         
     def draw(self): 
         self.screen.fill(self.bg_color)
         # self.gamelevel.tiles.draw(self.screen)
         self.screen.blit(self.background, self.bg.rect)
         self.gamelevel.draw()
+        self.scoreboard.draw()
                 
     def run(self):
         self.update()
