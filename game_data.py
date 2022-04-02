@@ -16,4 +16,4 @@ level_map = [
 '                              ',
 'P                             ',
 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']

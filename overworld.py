@@ -90,12 +90,11 @@ class Overworld:
         self.icon.draw(self.screen)
         
 class Icon(Sprite):
-    player_image = [pg.image.load(f'img/mario/idle/Mario0.png')]
+    player_image = pg.transform.rotozoom(pg.image.load(f'img/mario/idle/Mario0.png'),0 ,4)
     def __init__(self,pos):
         super().__init__()
         self.pos = pos
-        self.image = pg.Surface((20,20))
-        self.image.fill('blue')
+        self.image = Icon.player_image
         self.rect = self.image.get_rect(center = self.pos)
         
     def update(self):
