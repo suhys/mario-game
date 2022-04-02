@@ -7,6 +7,7 @@ from level import *
 from tile import Tile
 from background import Background
 from landing_page import LandingPage
+from sound import Sound
 # from game_status import GameStats
 
 class Game:
@@ -16,6 +17,7 @@ class Game:
         pg.init()
         self.settings = Settings()
         # self.game_status = GameStats
+        self.sound = Sound()
         
         self.screen = pg.display.set_mode((self.settings.screen_width,
                                            self.settings.screen_height))
@@ -58,6 +60,7 @@ class Game:
         self.draw()
         
     def run_game(self):
+        self.sound.play_bg()
         while True:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -70,6 +73,8 @@ class Game:
     
     def game_over(self): 
         print('\nGAME OVER!\n\n')
+        self.sound.play_game_over()
+        main()
         
         
 def main():
