@@ -82,21 +82,17 @@ class GameLevel:
                 else:
                     player.speed = 0
                     self.world_shift = -8
-                print('1')
             elif direction_x < 0 and self.rect.left > 0:
                 self.world_shift = -1
                 player.speed = 8
-                print('2')
             else :
                 self.world_shift = -1
                 player.speed = 0
-                print('3)')
                 
         else:
             player.speed = 8
             self.world_shift = 0
 
-        
     def horizontal_movement_collision(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
@@ -136,6 +132,12 @@ class GameLevel:
             player.on_ground = False
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False 
+            
+    def falling(self):
+        player = self.player.sprite
+        self.rect = player.rect
+        if player.rect.bottom > self.screen_rect.bottom:
+            self.status = 'gameover'
     
     def update(self):
         #self.tiles.update(self.world_shift)
