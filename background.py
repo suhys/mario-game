@@ -9,6 +9,8 @@ class Background():
                                   (int(self.settings.screen_width*self.settings.background_multiplier),
                                   int(self.settings.screen_height)))
         self.rect = self.background.get_rect()
+        self.rect_width = self.rect.width
+        self.rect_height = self.rect.height
         self.rect = self.rect.move((0,0))
         
     def update(self,x_shift):

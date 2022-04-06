@@ -39,9 +39,9 @@ class Game:
         
     def draw(self): 
         self.screen.fill(self.bg_color)
-        self.gamelevel.drawTiles()
+        # self.gamelevel.tiles.draw(self.screen)
         self.screen.blit(self.background, self.bg.rect)
-        self.gamelevel.drawPlayer()
+        self.gamelevel.draw()
         self.scoreboard.draw()
                 
     def run_game(self):

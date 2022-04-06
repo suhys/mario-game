@@ -1,19 +1,29 @@
-level_0 = {'node_pos':(150,300), 'content': 'this is level 0', 'unlock':1}
-level_1 = {'node_pos':(400,450), 'content': 'this is level 1', 'unlock':2}
-level_2 = {'node_pos':(650,150), 'content': 'this is level 2', 'unlock':3}
-level_3 = {'node_pos':(850,400), 'content': 'this is level 3', 'unlock':3}
-
-levels = {0: level_0, 1: level_1, 2: level_2, 3: level_3}
-
 level_map = [
-'                              ',
-'                              ',
-'                              ',
-'                              ',
-'                              ',
-'                              ',
-'                              ',
-'                              ',
-'P                             ',
-'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+'',
+'',
+'',
+'',
+'                                                                                G G   CC   CCC                           CCC       C',
+'                      ?                                                         XXXXXXXX   XXX?             M            XXX    X??X                                                        XXX',
+'                                                                                                                                                                                           XXXX',
+'                                                                                                                                                                                          XXXXX',
+'                                                                 I                                                               CC                                                      XXXXXX',
+'                ?   XMX?X                     PP         PP                  XMX              L    XS    ?  ?  ?      X          XX      X  X          XX  X             XX ?X          XXXXXXX',
+'                                      PP      XX         XX                                                                             XX  XX        XXX  XX                          XXXXXXXX',
+'                            PP        XX      XX         XX                                               K                            XXX  XXX      XXXX  XXX                        XXXXXXXXX',
+'  A       C           G     XX        XXG     XX   G G   XX                                     G G              G  G       G G G G   XXXX  XXXX    XXXXX  XXXX                G G   XXXXXXXXXX',
+'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  XXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  XXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+
+UnderGround_map = [
+    'X   XXXXXXX'
+    'X'
+    'X    CCCCC'
+    'X   CCCCCCC'
+    'X   CCCCCCC'
+    'X   XXXXXXX'
+    'X   XXXXXXX'
+    'X   XXXXXXX   PXX'
+    'XXXXXXXXXXXXXXXXX'
+    'XXXXXXXXXXXXXXXXX'
+]

@@ -1,40 +1,11 @@
 from turtle import width
 import pygame as pg
-from game_data import levels, level_map
+from game_data import level_map
 from player import Player
 from pygame.sprite import Group
 from tile import Tile
+from coin import Coin
 
-class OverWorldLevel:
-    def __init__(self, game, current_level):
-        self.game = game
-        self.settings = self.game.settings
-       
-        
-        #level setup
-        self.screen = game.screen
-        self.current_level = current_level
-        level_data = levels[self.current_level]
-        level_content = level_data['content']
-        self.new_max_level = level_data['unlock']
-        self.create_overworld = self.game.create_overworld
-        
-        # level display
-        self.font = pg.font.Font(None, 40)
-        self.text_surf = self.font.render(level_content, True, 'White')
-        self.text_rect = self.text_surf.get_rect(center = (self.settings.screen_width /2, self.settings.screen_height /2))
-        
-    def input(self):
-        keys = pg.key.get_pressed()
-        if keys[pg.K_RETURN]:
-            self.create_overworld(self.current_level, self.new_max_level)
-        if keys[pg.K_ESCAPE]:
-            self.create_overworld(self.current_level, 0)
-        
-    def run(self):
-        self.input()
-        self.screen.blit(self.text_surf, self.text_rect)
-        
 
 class GameLevel:
     def __init__(self, game):
@@ -56,16 +27,29 @@ class GameLevel:
     def setup_level(self, layout):
         self.tiles = Group()
         self.player = pg.sprite.GroupSingle()
+        self.pipe = Group()
+        self.question = Group()
+        self.coin = Group()
         for row_index, row in enumerate(layout):
             for col_index, cell in enumerate(row):
-                x = col_index * self.settings.tile_size
-                y = row_index * self.settings.tile_size
-                if cell == 'X':
-                    tile = Tile((x,y),self.settings.tile_size)
+                x = col_index * self.settings.tile_width
+                y = row_index * self.settings.tile_height
+                if cell == 'X' or cell == 'P' or cell == '?':
+                    tile = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Gray')
                     self.tiles.add(tile)
-                if cell == 'P':
+                if cell == 'A':
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
+                if cell == 'P':
+                    pipe = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Green')
+                    self.pipe.add(pipe)
+                if cell == '?':
+                    question = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Brown')
+                    self.question.add(question)
+                if cell == 'C':
+                    coin = Coin((x,y))
+                    self.coin.add(coin)
+
     
     def scroll_x(self):
         player = self.player.sprite
@@ -73,26 +57,28 @@ class GameLevel:
         self.rect = player.rect
         direction_x = player.direction.x
         
-
+        # self.shift_world(player, -8)
+        
         if self.bg.rect.right > self.screen_rect.right :
             if direction_x > 0 and self.rect.right < self.screen_rect.right:
                 if self.rect_x < self.settings.screen_width - (self.settings.screen_width / 2):
                     player.speed = 8
-                    self.world_shift = -1
+                    self.world_shift = 0
                 else:
                     player.speed = 0
                     self.world_shift = -8
             elif direction_x < 0 and self.rect.left > 0:
-                self.world_shift = -1
+                self.world_shift = 0
                 player.speed = 8
             else :
-                self.world_shift = -1
+                self.world_shift = 0
                 player.speed = 0
                 
         else:
             player.speed = 8
             self.world_shift = 0
 
+        
     def horizontal_movement_collision(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
@@ -140,16 +126,22 @@ class GameLevel:
             self.status = 'gameover'
     
     def update(self):
-        #self.tiles.update(self.world_shift)
+        self.tiles.update(self.world_shift)
+        self.question.update(self.world_shift)
+        self.pipe.update(self.world_shift)
+        self.coin.update(self.world_shift)
         self.bg.update(self.world_shift)
         self.player.update()
-             
-    def drawTiles(self):
-        #level tiles
-        self.tiles.draw(self.screen)
         self.scroll_x()
-    def drawPlayer(self):
-        #player
         self.horizontal_movement_collision()
         self.vertical_movement_collisoin()
+        self.falling()
+             
+    def draw(self):
+        # level tiles
+        self.tiles.draw(self.screen)
+        self.question.draw(self.screen)
+        self.pipe.draw(self.screen)
+        self.coin.draw(self.screen)
+        #player
         self.player.draw(self.screen)

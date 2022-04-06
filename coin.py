@@ -1,11 +1,10 @@
 import pygame as pg
 from pygame.sprite import Sprite
 
-class Tile(Sprite):
-    def __init__(self,pos,width, height,color):
+class Coin(Sprite):
+    def __init__(self,pos):
         super().__init__()
-        self.image = pg.Surface((width, height))
-        self.image.fill(color)
+        self.image = pg.image.load(f'img/Coin.png')
         self.rect = self.image.get_rect(topleft = pos)
         
     def update(self,x_shift):

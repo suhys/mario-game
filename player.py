@@ -15,8 +15,8 @@ class Player(Sprite):
         self.rect = self.image.get_rect(bottomleft = pos)
         
         # player movement
-        self.direction = pg.math.Vector2(0,0)
         self.speed = 0
+        self.direction = pg.math.Vector2(0,0)
         self.gravity = 0.8
         self.jump_speed = -16
         
