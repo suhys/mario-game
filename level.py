@@ -4,7 +4,7 @@ from game_data import level_map
 from player import Player
 from pygame.sprite import Group
 from tile import Tile
-from coin import Coin
+from Entity import Coin, Gumba
 
 
 class GameLevel:
@@ -30,6 +30,8 @@ class GameLevel:
         self.pipe = Group()
         self.question = Group()
         self.coin = Group()
+        self.invisible = Group()
+        self.g = Group()
         for row_index, row in enumerate(layout):
             for col_index, cell in enumerate(row):
                 x = col_index * self.settings.tile_width
@@ -49,6 +51,12 @@ class GameLevel:
                 if cell == 'C':
                     coin = Coin((x,y))
                     self.coin.add(coin)
+                if cell == 'I':
+                    invisible = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Blue')
+                    self.invisible.add(invisible)
+                if cell == 'G':
+                    g = Gumba((x,y))
+                    self.g.add(g)
 
     
     def scroll_x(self):
@@ -130,6 +138,8 @@ class GameLevel:
         self.question.update(self.world_shift)
         self.pipe.update(self.world_shift)
         self.coin.update(self.world_shift)
+        self.invisible.update(self.world_shift)
+        self.g.update(self.world_shift)
         self.bg.update(self.world_shift)
         self.player.update()
         self.scroll_x()
@@ -143,5 +153,7 @@ class GameLevel:
         self.question.draw(self.screen)
         self.pipe.draw(self.screen)
         self.coin.draw(self.screen)
+        self.invisible.draw(self.screen)
+        self.g.draw(self.screen)
         #player
         self.player.draw(self.screen)
