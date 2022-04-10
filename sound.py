@@ -19,7 +19,7 @@ class Sound:
     def play_bg(self): self.play_music('sounds/mario_theme.wav')
     def play_game_over(self):
         self.stop_bg()     # no more background music
-        self.play_sound(self.game_over)
+        # self.play_sound(self.game_over)
         while self.busy():    # stays here until end_theme finishes playing
             pass
 

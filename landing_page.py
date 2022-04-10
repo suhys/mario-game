@@ -12,14 +12,14 @@ class LandingPage:
         self.screen = game.screen
         self.landing_page_finished = False
         self.settings = game.settings
-        # self.highscore = game.stats.get_highscore()
+        self.highscore = game.stats.get_highscore()
         centerx = self.screen.get_rect().centerx
         
         self.font1 = pg.font.Font("font/Fixedsys500c.ttf", 50)
         self.font2 = pg.font.Font("font/Fixedsys500c.ttf", 30)
         
         strings = [
-                  (f'Highest Score =', WHITE, self.font2)]
+                  (f'Highest Score ={str(self.highscore)}', WHITE, self.font2)]
         
         self.texts = [self.get_text(msg=s[0], color=s[1], font=s[2]) for s in strings]
         self.posns = [450]

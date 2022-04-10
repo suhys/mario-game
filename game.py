@@ -16,7 +16,7 @@ class Game:
         #initialize pygame, settings, and screen object
         pg.init()
         self.settings = Settings()
-        
+                
         self.screen = pg.display.set_mode((self.settings.screen_width,
                                            self.settings.screen_height))
         self.bg_color = self.settings.bg_color
@@ -30,6 +30,7 @@ class Game:
         self.clock = pg.time.Clock()
         
         self.gamelevel = GameLevel(game=self)
+        self.status = 'game'
         
         pg.display.set_caption("Mario Game")
         
@@ -39,13 +40,15 @@ class Game:
         
     def draw(self): 
         self.screen.fill(self.bg_color)
-        # self.gamelevel.tiles.draw(self.screen)
+        self.gamelevel.tiles.draw(self.screen)
+        self.gamelevel.question.draw(self.screen)
+        self.gamelevel.pipe.draw(self.screen)
         self.screen.blit(self.background, self.bg.rect)
         self.gamelevel.draw()
         self.scoreboard.draw()
                 
     def run_game(self):
-        while True:
+        while self.status == 'game':
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     sys.exit()
@@ -55,6 +58,8 @@ class Game:
             
             pg.display.update()
             self.clock.tick(60)
+            
+        self.game_over()
             
     def game_over(self): 
         print('\nGAME OVER!\n\n')

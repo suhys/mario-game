@@ -1,3 +1,5 @@
+from level import GameLevel
+
 class GameStats:
     def __init__(self, game):
         self.game = game
@@ -43,6 +45,6 @@ class GameStats:
         except:
             print("highscore.txt not found...")
             
-    # def score_update(self):
-    #     self.score += alien.points
-    #     self.highscore = max(self.score, self.highscore)
+    def score_update(self):
+        self.score += self.coin_score
+        self.highscore = max(self.score, self.highscore)

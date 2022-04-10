@@ -11,6 +11,7 @@ class GameLevel:
     def __init__(self, game):
         self.game = game
         self.bg = game.bg
+        self.stats = game.stats
         
         self.settings = game.settings
         self.screen = game.screen
@@ -23,6 +24,7 @@ class GameLevel:
         
         self.moving_right = False
         self.moving_left = False
+        self.coin_points = 20
         
     def setup_level(self, layout):
         self.tiles = Group()
@@ -57,6 +59,13 @@ class GameLevel:
                 if cell == 'G':
                     g = Gumba((x,y))
                     self.g.add(g)
+                    
+    def collision(self):
+        collisions = pg.sprite.groupcollide(self.coin, self.player, True, False)
+        for coin in collisions:
+             self.stats.coin_score += self.coin_points
+             self.stats.score_update()
+        print (self.coin_points)
 
     
     def scroll_x(self):
@@ -131,7 +140,7 @@ class GameLevel:
         player = self.player.sprite
         self.rect = player.rect
         if player.rect.bottom > self.screen_rect.bottom:
-            self.status = 'gameover'
+            self.game.status = 'gameover'
     
     def update(self):
         self.tiles.update(self.world_shift)
@@ -146,12 +155,13 @@ class GameLevel:
         self.horizontal_movement_collision()
         self.vertical_movement_collisoin()
         self.falling()
+        self.collision()
              
     def draw(self):
         # level tiles
-        self.tiles.draw(self.screen)
-        self.question.draw(self.screen)
-        self.pipe.draw(self.screen)
+        # self.tiles.draw(self.screen)
+        # self.question.draw(self.screen)
+        # self.pipe.draw(self.screen)
         self.coin.draw(self.screen)
         self.invisible.draw(self.screen)
         self.g.draw(self.screen)
