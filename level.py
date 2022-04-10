@@ -66,7 +66,13 @@ class GameLevel:
              self.stats.coin_score += self.coin_points
              self.stats.score_update()
         print (self.coin_points)
-
+        collisions = pg.sprite.groupcollide(self.g, self.player, True, False)
+        
+        # for gumba in self.g:
+        #     if pg.Rect.collidepoint(self.player, gumba.rect.top):
+        #         gumba.kill
+        #     if pg.Rect.collidepoint(self.player, gumba.rect.top) == False:
+        #         self.game.status = 'gameover'
     
     def scroll_x(self):
         player = self.player.sprite
