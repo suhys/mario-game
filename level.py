@@ -34,6 +34,7 @@ class GameLevel:
         self.coin = Group()
         self.invisible = Group()
         self.g = Group()
+        self.fall= Group()
         for row_index, row in enumerate(layout):
             for col_index, cell in enumerate(row):
                 x = col_index * self.settings.tile_width
@@ -56,18 +57,33 @@ class GameLevel:
                 if cell == 'I':
                     invisible = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Blue')
                     self.invisible.add(invisible)
+                if cell == 'F':
+                    fall = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Pink')
+                    self.fall.add(fall)
                 if cell == 'G':
                     g = Gumba((x,y))
                     self.g.add(g)
+
+                
                     
     def collision(self):
+        player = self.player.sprite
+        self.rect_x = player.rect.centerx
+        self.rect = player.rect
         collisions = pg.sprite.groupcollide(self.coin, self.player, True, False)
         for coin in collisions:
              self.stats.coin_score += self.coin_points
              self.stats.score_update()
-        print (self.coin_points)
-        collisions = pg.sprite.groupcollide(self.g, self.player, True, False)
-        
+        if pg.sprite.groupcollide(self.g, self.player, True,True): 
+            self.game.status = 'gameover'   
+        pg.sprite.groupcollide(self.question, self.player, True,False)
+        for gumba in self.g:
+            if pg.sprite.spritecollide(gumba, self.tiles, False): 
+                if gumba.direction.x==1:
+                    gumba.direction.x=-1
+                else:
+                    gumba.direction.x=1
+            pg.sprite.spritecollide(gumba, self.fall, True)
         # for gumba in self.g:
         #     if pg.Rect.collidepoint(self.player, gumba.rect.top):
         #         gumba.kill
