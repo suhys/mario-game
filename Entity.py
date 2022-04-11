@@ -18,9 +18,12 @@ class Gumba(Sprite):
         super().__init__()
         self.image = pg.transform.rotozoom(pg.image.load(f'img/gumba.png'), 0,2)
         self.rect = self.image.get_rect(topleft = pos)
-        
+        self.direction = pg.math.Vector2(-1,0)
+
+
     def update(self,x_shift):
         self.rect.x += x_shift
+        self.rect.x += self.direction.x
         
 class Mushroom(Sprite):
     def __init__(self,pos):
