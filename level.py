@@ -1,7 +1,6 @@
-from tkinter import UNDERLINE
 from turtle import width
 import pygame as pg
-from game_data import UnderGround_map, level_map
+from game_data import level_map
 from player import Player
 from pygame.sprite import Group
 from tile import Tile
@@ -27,12 +26,10 @@ class GameLevel:
         self.moving_left = False
         self.coin_points = 20
         
-        self.underground = False
-        
     def setup_level(self, layout):
         self.tiles = Group()
         self.player = pg.sprite.GroupSingle()
-        self.enter = Group()
+        self.pipe = Group()
         self.question = Group()
         self.coin = Group()
         self.invisible = Group()
@@ -48,9 +45,9 @@ class GameLevel:
                 if cell == 'A':
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
-                if cell == 'E':
-                    Enter = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Green')
-                    self.enter.add(Enter)
+                if cell == 'P':
+                    pipe = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Green')
+                    self.pipe.add(pipe)
                 if cell == '?':
                     question = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Brown')
                     self.question.add(question)
@@ -66,58 +63,20 @@ class GameLevel:
                 if cell == 'G':
                     g = Gumba((x,y))
                     self.g.add(g)
-<<<<<<< HEAD
-<<<<<<< HEAD
-                if cell == 'F':
-                    fall = Tile((x,y),self.settings.tile_width, self.settings.tile_height,'Pink')
-                    self.fall.add(fall)
-=======
 
                 
->>>>>>> 7386a61f962c6c571161628492edcec10a18bf8f
-=======
-
-                
->>>>>>> 7386a61f962c6c571161628492edcec10a18bf8f
                     
     def collision(self):
         player = self.player.sprite
         self.rect_x = player.rect.centerx
-<<<<<<< HEAD
-<<<<<<< HEAD
-        self.rect_bottom = player.rect.bottom
-=======
         self.rect = player.rect
->>>>>>> 7386a61f962c6c571161628492edcec10a18bf8f
-=======
-        self.rect = player.rect
->>>>>>> 7386a61f962c6c571161628492edcec10a18bf8f
         collisions = pg.sprite.groupcollide(self.coin, self.player, True, False)
         for coin in collisions:
              self.stats.coin_score += self.coin_points
              self.stats.score_update()
-<<<<<<< HEAD
-<<<<<<< HEAD
-        print (self.coin_points)
-        if pg.sprite.groupcollide(self.g, self.player, False,False):
-            for gumba in self.g:
-                if gumba.rect.top == self.rect_bottom:
-                    gumba.kill()
-                    print("kill")
-                else:
-                    self.game.status = 'gameover'   
-        # if pg.sprite.groupcollide(self.g, self.player, True,True):
-        #     self.game.status = 'gameover'   
-=======
         if pg.sprite.groupcollide(self.g, self.player, True,True): 
             self.game.status = 'gameover'   
         pg.sprite.groupcollide(self.question, self.player, True,False)
->>>>>>> 7386a61f962c6c571161628492edcec10a18bf8f
-=======
-        if pg.sprite.groupcollide(self.g, self.player, True,True): 
-            self.game.status = 'gameover'   
-        pg.sprite.groupcollide(self.question, self.player, True,False)
->>>>>>> 7386a61f962c6c571161628492edcec10a18bf8f
         for gumba in self.g:
             if pg.sprite.spritecollide(gumba, self.tiles, False): 
                 if gumba.direction.x==1:
@@ -125,28 +84,14 @@ class GameLevel:
                 else:
                     gumba.direction.x=1
             pg.sprite.spritecollide(gumba, self.fall, True)
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-        # if pg.sprite.groupcollide(self.enter, self.player, False, False):
-        #     if player.down:
-        #         self.underground = True
-        #         print("underground")
-=======
-=======
->>>>>>> 7386a61f962c6c571161628492edcec10a18bf8f
-        # for gumba in self.g:
-        #     if pg.Rect.collidepoint(self.player, gumba.rect.top):
-        #         gumba.kill
-        #     if pg.Rect.collidepoint(self.player, gumba.rect.top) == False:
-        #         self.game.status = 'gameover'
->>>>>>> 7386a61f962c6c571161628492edcec10a18bf8f
+
     
     def scroll_x(self):
         player = self.player.sprite
         self.rect_x = player.rect.centerx
         self.rect = player.rect
         direction_x = player.direction.x
+        
         
         if self.bg.rect.right > self.screen_rect.right :
             if direction_x > 0 and self.rect.right < self.screen_rect.right:
@@ -217,7 +162,7 @@ class GameLevel:
     def update(self):
         self.tiles.update(self.world_shift)
         self.question.update(self.world_shift)
-        self.enter.update(self.world_shift)
+        self.pipe.update(self.world_shift)
         self.coin.update(self.world_shift)
         self.invisible.update(self.world_shift)
         self.g.update(self.world_shift)
@@ -231,11 +176,7 @@ class GameLevel:
              
     def draw(self):
         # level tiles
-        # self.tiles.draw(self.screen)
-        # self.question.draw(self.screen)
-        # self.pipe.draw(self.screen)
         self.coin.draw(self.screen)
-        self.invisible.draw(self.screen)
         self.g.draw(self.screen)
         #player
         self.player.draw(self.screen)
