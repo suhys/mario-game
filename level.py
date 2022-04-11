@@ -83,7 +83,11 @@ class GameLevel:
                     gumba.direction.x=-1
                 else:
                     gumba.direction.x=1
-            pg.sprite.spritecollide(gumba, self.fall, True)
+            if pg.sprite.spritecollide(gumba, self.fall, False):
+                if gumba.direction.x==1:
+                    gumba.direction.x=-1
+                else:
+                    gumba.direction.x=1
 
     
     def scroll_x(self):
@@ -165,6 +169,7 @@ class GameLevel:
         self.pipe.update(self.world_shift)
         self.coin.update(self.world_shift)
         self.invisible.update(self.world_shift)
+        self.fall.update(self.world_shift)
         self.g.update(self.world_shift)
         self.bg.update(self.world_shift)
         self.player.update()

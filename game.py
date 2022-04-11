@@ -46,6 +46,7 @@ class Game:
         self.gamelevel.question.draw(self.screen)
         self.gamelevel.pipe.draw(self.screen)
         self.gamelevel.invisible.draw(self.screen)
+        self.gamelevel.fall.draw(self.screen)
         self.screen.blit(self.background, self.bg.rect)
         self.gamelevel.draw()
         self.scoreboard.draw()
