@@ -13,5 +13,11 @@ class Background():
         self.rect_height = self.rect.height
         self.rect = self.rect.move((0,0))
         
+        self.underground = pg.image.load(f'img/level/1-1.png')
+        self.underground = pg.transform.scale(self.background,
+                                  (int(self.settings.screen_width*self.settings.background_multiplier),
+                                  int(self.settings.screen_height)))
+        
     def update(self,x_shift):
         self.rect.x += x_shift
+        

@@ -27,6 +27,8 @@ class Player(Sprite):
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
+        
+        self.down = False
     
     def import_character_assets(self):
         character_path = 'img/mario/'
@@ -83,6 +85,9 @@ class Player(Sprite):
             
         if keys[pg.K_SPACE] and self.on_ground:
             self.jump()
+        if keys[pg.K_DOWN]:
+            self.down = True
+            print("down")
             
     def get_status(self):
         if self.direction.y <0:

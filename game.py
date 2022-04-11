@@ -9,6 +9,7 @@ from landing_page import LandingPage
 from sound import Sound
 from game_stats import GameStats
 from scoreboard import Scoreboard
+from under_ground import UnderGround
 
 class Game:
     
@@ -22,6 +23,7 @@ class Game:
         self.bg_color = self.settings.bg_color
         self.bg = Background(game = self)
         self.background = self.bg.background
+        self.underground = self.bg.underground
         self.tile = Tile
         self.stats = GameStats(game=self)
         self.scoreboard = Scoreboard(game=self)
@@ -42,7 +44,7 @@ class Game:
         self.screen.fill(self.bg_color)
         self.gamelevel.tiles.draw(self.screen)
         self.gamelevel.question.draw(self.screen)
-        self.gamelevel.pipe.draw(self.screen)
+        self.gamelevel.enter.draw(self.screen)
         self.screen.blit(self.background, self.bg.rect)
         self.gamelevel.draw()
         self.scoreboard.draw()
@@ -55,6 +57,11 @@ class Game:
 
             self.update()
             self.draw() 
+            
+            # if self.gamelevel.underground:
+            #     ug = UnderGround(game = self)
+            #     ug.show()
+                
             
             pg.display.update()
             self.clock.tick(60)
